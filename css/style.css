@@ -276,3 +276,24 @@ details p { font-size: 13px; color: var(--text-2); margin: 8px 0; }
   font-size: 12.5px; color: var(--text-2); text-align: center;
 }
 .foot p { margin: 4px 0; }
+
+/* ---------- 操作说明页（guide.html） ---------- */
+.guide-card { scroll-margin-top: 20px; }
+.guide-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+a.chip { text-decoration: none; display: inline-block; }
+.guide-nav span.chip { cursor: default; }
+.guide-note {
+  margin: 14px 0 0; padding: 10px 14px; font-size: 12.5px; color: var(--text-2);
+  background: #FBFCFA; border: 1px dashed var(--line); border-radius: 10px;
+}
+.guide-card code {
+  font-family: var(--mono); font-size: 12px;
+  background: var(--green-100); color: var(--green-900);
+  padding: 1px 5px; border-radius: 5px;
+}
+.guide-card .seg-row input[disabled],
+.guide-card .seg-row select[disabled] { color: var(--text-2); background: #F4F5F2; }
+.guide-card .seg-row .del[disabled] { cursor: default; }
+@media (max-width: 700px) {
+  .dtable td, .dtable th { font-size: 12.5px; }
+}

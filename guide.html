@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>操作说明 · 铁路票价模拟计算器</title>
+  <meta name="description" content="铁路票价模拟计算器操作说明：逐项讲解页头导航、快捷方案、参数下拉框、空调与上浮率、运价区段编辑、计算与复制按钮的用途、点击效果与注意事项。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232E7D32'/%3E%3Crect x='7' y='6' width='18' height='14' rx='4' fill='%23fff'/%3E%3Ccircle cx='12' cy='16' r='2' fill='%232E7D32'/%3E%3Ccircle cx='20' cy='16' r='2' fill='%232E7D32'/%3E%3Crect x='9' y='22' width='3' height='4' rx='1.5' fill='%23fff'/%3E%3Crect x='20' y='22' width='3' height='4' rx='1.5' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>操作说明</h1>
+        <p class="hero-sub">逐项说明计算器上每一个可点击、可输入的控件：它在哪、做什么、改动之后会发生什么。 · 计算结果仅供参考，以实际执行票价为准</p>
+      </div>
+      <nav class="hero-tabs" aria-label="页面导航">
+        <a class="tab" href="index.html">← 返回计算器</a>
+        <a class="tab" href="tests/test.html">案例回归 ↗</a>
+      </nav>
+    </div>
+    <div class="hero-track" aria-hidden="true"><span></span><span></span><span></span></div>
+  </header>
+
+  <main class="wrap">
+    <!-- 目录 -->
+    <section class="card guide-card" id="guide-nav">
+      <h2 class="card-title">本页目录</h2>
+      <p class="muted">点击任一条目直接跳到对应小节。控件名称与页面上的文字保持一致，可对照查找。</p>
+      <div class="guide-nav">
+        <a class="chip" href="#header-nav">一、页头导航</a>
+        <a class="chip" href="#presets">二、快捷方案</a>
+        <a class="chip" href="#params">三、席别 · 等级 · 票种 · 折扣</a>
+        <a class="chip" href="#ac">四、空调类型与上浮率</a>
+        <a class="chip" href="#segments">五、运价区段</a>
+        <a class="chip" href="#actions">六、添加区段与计算票价</a>
+        <a class="chip" href="#result">七、结果区</a>
+        <a class="chip" href="#detail">八、计算明细与复制</a>
+        <a class="chip" href="#faq">九、常见疑问</a>
+      </div>
+    </section>
+
+    <!-- 一、页头导航 -->
+    <section class="card guide-card" id="header-nav">
+      <h2 class="card-title">一、页头导航</h2>
+      <p class="muted">绿色横幅右侧的三个按钮，位置最高、优先级也最高：前两个用来一键套用整套运价方案，第三个跳出本页。</p>
+      <table class="dtable">
+        <thead>
+          <tr><th style="width:140px">控件</th><th style="width:180px">作用</th><th>点击后的效果</th><th style="width:250px">关联与注意</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>标准国铁</b><br /><span class="muted">默认白底高亮</span></td>
+            <td>套用「标准国铁」方案</td>
+            <td>清空现有全部运价区段，重建为一行：名称「全程（国铁标准）」、里程 1208 km、计价模式「国铁标准运价」。</td>
+            <td>手工编辑过的区段会被整段覆盖；席别、车次等级、空调、票种、短途折扣等参数不受影响。白底高亮固定在「标准国铁」上，切换方案后不会跟着变，当前生效的是哪一个，看下方方案按钮中呈深绿色的那个。</td>
+          </tr>
+          <tr>
+            <td><b>非标准运价</b></td>
+            <td>套用石长线示例</td>
+            <td>重建为两行：石门县北-捞刀河（非标准）184 km、900km 运价、上浮率 0.5；国铁区段 155 km、国铁标准运价。</td>
+            <td>与下方「石长线（900km+1/2）」方案按钮完全等价，点哪个都一样。</td>
+          </tr>
+          <tr>
+            <td><b>案例回归 ↗</b><br /><span class="muted">超链接</span></td>
+            <td>查看文档案例的自动比对结果</td>
+            <td>跳到 tests/test.html，逐条列出标准案例 1–4 与非标准例 1–10 的文档值、引擎值与偏差。</td>
+            <td>「↗」提示这是跳出当前页；返回请用那一页左上角的「← 返回计算器」。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 二、快捷方案 -->
+    <section class="card guide-card" id="presets">
+      <h2 class="card-title">二、快捷方案（10 个方案按钮）</h2>
+      <p class="muted">位于「运价区段」标题上方，每个按钮对应黄河铁路网文档里的一个案例或一种典型算法。点一下就把整套区段填好，适合先跑通样例、再照着改数字。</p>
+      <div class="guide-nav" style="margin-bottom:14px">
+        <span class="chip on" aria-hidden="true">方案按钮的选中状态</span>
+        <span class="chip" aria-hidden="true">未选中的状态</span>
+      </div>
+      <table class="dtable">
+        <thead>
+          <tr><th style="width:180px">方案按钮</th><th>点击后生成的区段</th><th style="width:230px">说明</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>标准国铁</b></td>
+            <td>全程（国铁标准）· 1208 km · 国铁标准运价</td>
+            <td>单段全程计价，最基础的用法。</td>
+          </tr>
+          <tr>
+            <td><b>非标准分段（合九线·例1）</b></td>
+            <td>区段一 · 19 km · 国铁标准运价 · 折算 ✓<br />区段二 · 137 km · 国铁标准运价 · 折算 ✓</td>
+            <td>文档例 1：非标准线路拆成两段，各自套用国铁标准算法，卧铺按短途折算。</td>
+          </tr>
+          <tr>
+            <td><b>石长线（900km+1/2）</b></td>
+            <td>石门县北-捞刀河（非标准）· 184 km · 900km 运价 · 上浮率 0.5<br />国铁区段 · 155 km · 国铁标准运价</td>
+            <td>900km 运价按 f(900+d)−f(900) 取差价，再上浮 1/2。</td>
+          </tr>
+          <tr>
+            <td><b>京九/广梅汕（例6）</b></td>
+            <td>深圳-常平（900km+1/2）· 57 km · 900km 运价 · 上浮率 0.5<br />常平-龙川（广梅汕 900km+7/20）· 213 km · 900km 运价 · 上浮率 0.35</td>
+            <td>同一趟车跨越两条非标准线路，两段上浮率不同，需要分两行各填各的。</td>
+          </tr>
+          <tr>
+            <td><b>京广坪广段（软席）</b></td>
+            <td>坪石-广州（900km+1/2，软席）· 308 km · 900km 运价 · 上浮率 0.5<br />长沙-坪石（国铁）· 399 km · 国铁标准运价</td>
+            <td>方案只填区段，不切换席别；要算软席请另行在「席别」里选软座或软卧。</td>
+          </tr>
+          <tr>
+            <td><b>宁蓉线（900km+1/2）</b></td>
+            <td>宁蓉线非标准段 · 100 km · 900km 运价 · 上浮率 0.5<br />国铁区段 · 300 km · 国铁标准运价</td>
+            <td>非标准段与国铁段混合计价的通用写法。</td>
+          </tr>
+          <tr>
+            <td><b>平南线（例4）</b></td>
+            <td>深圳西-平湖（国铁×3，卧铺×1.5）· 35 km · 乘数上浮 · 乘数 3 · 卧铺系数 1.5 · 折算 ✓<br />平湖-广州（×1.5 再 ×1.3）· 127 km · 乘数上浮 · 乘数 1.5,1.3 · 卧铺系数 1.5</td>
+            <td>乘数链写法：逗号分隔的系数会依序相乘，每乘一次舍入一次。</td>
+          </tr>
+          <tr>
+            <td><b>海南（例8）</b></td>
+            <td>茂名-塘口（×1.5，卧铺×3）· 80 km · 乘数上浮 · 乘数 1.5 · 卧铺系数 3 · 折算 ✓<br />塘口-三亚（×1.5，卧铺×3）· 681 km · 乘数上浮 · 乘数 1.5 · 卧铺系数 3 · 折算 ✓<br />其余国铁里程 · 2669 km · 国铁标准运价</td>
+            <td>长途方案：非标准段按乘数上浮，其余里程仍走国铁标准运价。</td>
+          </tr>
+          <tr>
+            <td><b>达成线（例9）</b></td>
+            <td>达成线区段（单位里程票价）· 186 km · 达成线单位里程票价<br />其余国铁里程 · 482 km · 国铁标准运价</td>
+            <td>达成线按单位里程票价直算，不参与递远递减。</td>
+          </tr>
+          <tr>
+            <td><b>青藏加价（例10）</b></td>
+            <td>国铁（含青藏段合并里程）· 1972 km · 国铁标准运价<br />青藏线席别加价（格尔木-拉萨）· 1142 km · 青藏线席别加价</td>
+            <td>青藏段里程与国铁合并计价，另按席别加价。加价率随「席别」自动匹配，无需手填。</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="guide-note">方案按钮只负责填区段。点击时会清空当前所有区段行，手工改过的内容不会保留；席别、车次等级、空调类型、票种、短途折扣这五项参数一律不动。</p>
+    </section>
+
+    <!-- 三、参数下拉 -->
+    <section class="card guide-card" id="params">
+      <h2 class="card-title">三、席别 · 车次等级 · 票种 · 短途卧铺折扣</h2>
+      <p class="muted">「票价参数」卡片上半部分的四个下拉框，决定票价怎么算，与区段里程相互独立。</p>
+      <table class="dtable">
+        <thead>
+          <tr><th style="width:130px">控件</th><th style="width:150px">可选值</th><th>修改后的效果</th><th style="width:250px">关联与注意</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>席别</b></td>
+            <td>硬座（默认）、软座、硬卧（上/中/下铺）、硬包（上/下铺）、软卧（上/下铺）、高软（上/下铺），共 11 项</td>
+            <td>决定客票倍率（软座及以上为硬座的两倍）、是否产生卧铺票、是否属于软席，并影响候车室空调费、学生票资格、达成线单位票价、青藏线加价率。</td>
+            <td>软席不收候车室空调费；学生票仅在硬席生效；换席别可能让「卧铺订票费 10 元」出现或消失。</td>
+          </tr>
+          <tr>
+            <td><b>车次等级</b></td>
+            <td>普客（无加快）、普快、快速（默认）、特快</td>
+            <td>普客不收加快票；普快按普快加快基价（0.01172 元/km）；快速、特快按「先浮动、后舍入、再翻番」计算加快票。</td>
+            <td>加快票起步里程 100 km，不足按 100 km 计。</td>
+          </tr>
+          <tr>
+            <td><b>票种</b></td>
+            <td>全价票（默认）、学生票（硬席）、儿童票、伤残军人票</td>
+            <td>后三项触发半价：客票、加快票、空调票减半。学生票、儿童票的卧铺票仍按全额；伤残军人票连卧铺票一并减半。</td>
+            <td>软席搭配学生票不会减半，页面会在结果区给出提示。半价票同时影响保险费扣除额与软票费。</td>
+          </tr>
+          <tr>
+            <td><b>短途卧铺折扣</b></td>
+            <td>不适用（默认）、硬卧折扣（158%/170%）、软卧折扣（258%/270%）</td>
+            <td>按硬座票价乘系数重算卧铺票价：全程大于 200 km 用 158%（软卧 258%），不大于 200 km 用 170%（软卧 270%），结果保留到 0.5 元。</td>
+            <td>以「全程合计里程」而非单段里程判断档位；只有产生卧铺票时才看得出变化。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 四、空调 -->
+    <section class="card guide-card" id="ac">
+      <h2 class="card-title">四、空调类型与上浮率</h2>
+      <p class="muted">三个连在一起的单选按钮，决定收不收空调票、各分项上浮多少。</p>
+      <table class="dtable">
+        <thead>
+          <tr><th style="width:130px">控件</th><th style="width:180px">选择后</th><th>效果</th><th style="width:250px">关联与注意</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>非空调</b></td>
+            <td>不收取空调票，也不做空调上浮</td>
+            <td>空调票为 0，客票、卧铺等分项按原值参与合计。</td>
+            <td>选它之后下方的「上浮率」输入框会隐藏。</td>
+          </tr>
+          <tr>
+            <td><b>新空调</b><br /><span class="muted">默认选中</span></td>
+            <td>按标准新空调处理</td>
+            <td>空调票按 0.01465 元/km 计收，各分项上浮 50% 后四舍五入。</td>
+            <td>相当于把上浮率固定为 0.5，不需要也不能手改数值。</td>
+          </tr>
+          <tr>
+            <td><b>折扣浮动</b></td>
+            <td>展开「上浮率」输入框，由你指定比例</td>
+            <td>仍收取空调票，但上浮比例改用你填的数值。</td>
+            <td>仅选中它时上浮率才生效。</td>
+          </tr>
+          <tr>
+            <td><b>上浮率</b><br /><span class="muted">数字输入框</span></td>
+            <td>0 – 2 之间，步长 0.01，默认 0.5</td>
+            <td>0.5 代表上浮 50%，0.3 代表上浮 30%，0 代表收空调票但不加价。</td>
+            <td>只在「折扣浮动」下显示。留空或填成非数字会被当作无效值，建议直接用默认 0.5。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 五、运价区段 -->
+    <section class="card guide-card" id="segments">
+      <h2 class="card-title">五、运价区段（每一行都是一段独立计价）</h2>
+      <p class="muted">一行代表一段线路，全程票价等于各行结果之和。下面是行的外观示意（不可操作），字段说明见表。</p>
+      <div class="seg-table" style="margin-bottom:16px">
+        <div class="seg-row" aria-hidden="true">
+          <input placeholder="区段名称（可选）" disabled />
+          <input type="number" value="1208" disabled />
+          <select class="wide" disabled><option>国铁标准运价</option></select>
+          <input placeholder="上浮率 0.5" disabled />
+          <input placeholder="卧铺系数" disabled />
+          <label class="chk-mini"><input type="checkbox" disabled />折算</label>
+          <button type="button" class="del" disabled title="删除">✕</button>
+        </div>
+      </div>
+      <table class="dtable">
+        <thead>
+          <tr><th style="width:130px">字段</th><th style="width:170px">填写方式</th><th>作用</th><th style="width:240px">关联与注意</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>区段名称</b></td>
+            <td>文本，可留空</td>
+            <td>只用于计算明细里的分组标题和复制出来的文字，让结果好读。</td>
+            <td>不参与计算，写什么都不会改变票价。留空时明细里显示计价模式名称。</td>
+          </tr>
+          <tr>
+            <td><b>里程</b></td>
+            <td>数字，单位 km，默认 100</td>
+            <td>该段的计价里程。</td>
+            <td>里程为 0 或留空的行会被跳过；所有行都无效时点计算，会在按钮下方红框提示「请至少输入一个里程大于 0 的计价区段」。</td>
+          </tr>
+          <tr>
+            <td><b>计价模式</b></td>
+            <td>下拉，五选一</td>
+            <td>决定这一段走哪套算法：<br />· <b>国铁标准运价</b>：递远递减 + 计费里程区间取两端均值，并计入保险；<br />· <b>900km 运价（差价+上浮）</b>：按 f(900+d)−f(900) 取差价后上浮；<br />· <b>国铁价乘数上浮</b>：先按国铁标准算，再乘系数链；<br />· <b>达成线单位里程票价</b>：按单位里程票价直算，不做递远递减，卧铺与空调票 100 km 起步；<br />· <b>青藏线席别加价</b>：按席别加价，该段里程与国铁里程合并计算。</td>
+            <td>切换模式会立即改变右侧两个输入框的显隐与占位提示，已填的旧数值可能不再适用。</td>
+          </tr>
+          <tr>
+            <td><b>上浮率 / 乘数</b><br /><span class="muted">第 4 格</span></td>
+            <td>文本，仅「900km 运价」与「乘数上浮」模式显示</td>
+            <td>900km 运价下填上浮率，如 <code>0.5</code>、<code>0.35</code>；乘数上浮下填系数，支持逗号分隔多个，如 <code>1.5,1.3</code>，引擎会依序相乘、每乘一次舍入一次。</td>
+            <td>两种模式共用同一格，切换模式时占位文字会从「上浮率 0.5」变为「系数 1.5,1.3」，看清当前模式再填。乘数留空按 1 处理。</td>
+          </tr>
+          <tr>
+            <td><b>卧铺系数</b><br /><span class="muted">第 5 格</span></td>
+            <td>文本，仅「乘数上浮」模式显示</td>
+            <td>单独作用于卧铺票的乘数链，同样支持逗号分隔，如平南线的 <code>1.5</code>、海南的 <code>3</code>。</td>
+            <td>留空时默认沿用上一格的乘数，所以只改客票、不动卧铺时请显式填写。</td>
+          </tr>
+          <tr>
+            <td><b>折算</b><br /><span class="muted">复选框</span></td>
+            <td>勾选 / 不勾选，仅「国铁标准运价」与「乘数上浮」模式可见</td>
+            <td>勾选后，该段里程不足 400 km 时卧铺票按起步价折算：里程不大于 100 km 取 1/4，不大于 200 km 取 1/2，不大于 300 km 取 3/4，结果保留到 0.5 元。</td>
+            <td>这是短途分段计价的修正；里程已达 400 km 时，勾不勾选结果相同。其余模式下该复选框隐藏。</td>
+          </tr>
+          <tr>
+            <td><b>✕ 删除</b></td>
+            <td>按钮，位于每行最右</td>
+            <td>移除该行区段，全程里程随之减少。</td>
+            <td>删除是立即生效的，页面不提供撤销。误删可用方案按钮重建，或点「＋ 添加区段」手动补回。</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="guide-note">多段计价时，递远递减、保险计取、软票费等仍以「全程合计里程与合计客票」为准，不是逐段各算一遍杂费。</p>
+    </section>
+
+    <!-- 六、操作按钮 -->
+    <section class="card guide-card" id="actions">
+      <h2 class="card-title">六、添加区段与计算票价</h2>
+      <p class="muted">区段表格下方与明细标题右侧的几个按钮和开关。</p>
+      <table class="dtable">
+        <thead>
+          <tr><th style="width:170px">控件</th><th style="width:190px">位置</th><th>作用与效果</th><th style="width:240px">关联与注意</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>＋ 添加区段</b></td>
+            <td>区段表格下方、靠左的虚线按钮</td>
+            <td>在末尾追加一行空白区段：名称留空、里程 100 km、计价模式为国铁标准运价。</td>
+            <td>新增的行沿用当前参数（席别、空调等），只需补里程和模式。</td>
+          </tr>
+          <tr>
+            <td><b>计算票价</b></td>
+            <td>参数卡片右下角的深绿大按钮</td>
+            <td>收集全部参数 → 交由引擎计算 → 刷新右上角的「模拟票价」分项徽标与下方的计算明细。</td>
+            <td>参数不合法时不会覆盖已有结果，只在按钮下方弹出红色提示框。</td>
+          </tr>
+          <tr>
+            <td><b>输入变化自动重算</b></td>
+            <td>「计算过程明细」标题右侧的复选框，默认勾选</td>
+            <td>勾选状态：任何输入变动都会在 200 毫秒停顿后自动重新计算，无需点按钮。取消勾选：只有点「计算票价」才更新结果。</td>
+            <td>连续敲数字时不会每敲一下就重算，因此结果会有极短的延迟。想让页面彻底安静下来（例如慢慢抄数据），取消勾选即可。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 七、结果区 -->
+    <section class="card guide-card" id="result">
+      <h2 class="card-title">七、结果区</h2>
+      <p class="muted">右侧「计算结果」卡片，自上线到下依次是总价、分项徽标与提示。</p>
+      <table class="dtable">
+        <thead>
+          <tr><th style="width:170px">元素</th><th>含义</th><th style="width:250px">关联与注意</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>模拟票价</b></td>
+            <td>本次计算的最终总价，四舍五入到分，单位元。</td>
+            <td>计算前显示「--」。它是算法模拟值，与部分线路的实际执行票价可能不一致。</td>
+          </tr>
+          <tr>
+            <td><b>分项徽标</b></td>
+            <td>依次为客票、加快票、空调票、卧铺票、席别加价、软票费、候车空调费、卧铺订票费。数值为 0 的项不显示，避免干扰。</td>
+            <td>席别加价只在达成线与青藏线加价时出现；卧铺订票费固定 10 元，只要产生卧铺票就会列出。</td>
+          </tr>
+          <tr>
+            <td><b>扣保险</b><br /><span class="muted">红色徽标</span></td>
+            <td>从总价中扣除的保险费金额，显示为「扣保险 −x 元」。</td>
+            <td>保险费按全程客票基价的 1/50 计取、不足一角按一角，先计入客票再扣除；全价起扣五角，半价票按全价扣除额减半向下取到 0.5 元，可能为 0。</td>
+          </tr>
+          <tr>
+            <td><b>半价优惠已生效</b></td>
+            <td>出现该徽标表示本次确实执行了半价。</td>
+            <td>若选了学生票但席别是软席，这里不会出现，取而代之的是黄色提示框说明原因。</td>
+          </tr>
+          <tr>
+            <td><b>黄色提示框</b></td>
+            <td>展示计算过程中的非致命提示，例如「学生票仅对硬席列车适用」。</td>
+            <td>提示不影响出结果，仍会给出票价。</td>
+          </tr>
+          <tr>
+            <td><b>红色错误框</b></td>
+            <td>出现在「计算票价」按钮下方，例如没有有效区段时提示补填里程。</td>
+            <td>出错时结果区保持上一次的数值不变，不要误读为新结果。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 八、明细 -->
+    <section class="card guide-card" id="detail">
+      <h2 class="card-title">八、计算明细与复制</h2>
+      <p class="muted">页面下方的「计算过程明细」，把每一步换算、舍入、上浮、累加都摊开列出，按区段分组。</p>
+      <table class="dtable">
+        <thead>
+          <tr><th style="width:170px">元素</th><th>含义与用法</th><th style="width:250px">关联与注意</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>分组标题</b></td>
+            <td>绿色胶囊标签，如「区段1：石门县北-捞刀河（非标准）（900km 运价（差价+上浮） 184km）」，由此定位到具体区段。</td>
+            <td>分组名里的区段名称就是你在区段行第一格填的文字。另有「全程」「保险」「杂费」「合计」等固定分组。</td>
+          </tr>
+          <tr>
+            <td><b>计算式 / 说明</b></td>
+            <td>等宽字体的推导式，括号内是会注明口径，如「大于 200km 档」「半价票减半，最少五角」。</td>
+            <td>想核对某一步是否有偏差，看这一列最快。</td>
+          </tr>
+          <tr>
+            <td><b>复制</b></td>
+            <td>鼠标悬停在某一行时，该行计算式右侧浮现的「复制」按钮；点击后把「项目：计算式 = 结果」写入系统剪贴板，按钮文字变为「已复制」，1.2 秒后复原。</td>
+            <td>按钮平时透明、悬停才现形，这是正常现象。剪贴板接口只在安全环境可用，用浏览器直接双击打开的本地文件（file:// 开头）通常不支持，点了没反应；经 http://localhost 或线上访问则正常。</td>
+          </tr>
+          <tr>
+            <td><b>彩色圆点</b></td>
+            <td>项目名左侧的小圆点，标明该行的性质：<span class="dot calc"></span>蓝＝计算、<span class="dot round"></span>黄＝舍入、<span class="dot fee"></span>绿＝杂费、<span class="dot total"></span>红＝合计。</td>
+            <td>鼠标悬停在圆点上会显示对应文字说明。</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="guide-note">修改任何参数后，明细整体重算重绘，之前复制过的内容不会失效，但数值可能已经变了。</p>
+    </section>
+
+    <!-- 九、常见疑问 -->
+    <section class="card guide-card" id="faq">
+      <h2 class="card-title">九、常见疑问</h2>
+      <table class="dtable">
+        <thead>
+          <tr><th style="width:300px">现象</th><th>原因与处理</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>改了参数，结果却纹丝不动</td>
+            <td>多半是「输入变化自动重算」被取消勾选了。重新勾上，或点一次「计算票价」。</td>
+          </tr>
+          <tr>
+            <td>「复制」按钮点了没反应</td>
+            <td>当前页面多半是从本地文件直接打开的。剪贴板接口要求 https 或 localhost 环境，用 <code>python -m http.server 8080</code> 起个本地服务器再访问即可。</td>
+          </tr>
+          <tr>
+            <td>选了学生票却没有减半</td>
+            <td>学生票只对硬席生效。把席别换成硬座、硬卧或硬包，结果区的黄色提示框会消失，半价徽标随即出现。</td>
+          </tr>
+          <tr>
+            <td>「折算」复选框点不动</td>
+            <td>它只在「国铁标准运价」与「乘数上浮」两种模式下参加排版，其余模式下被隐藏，改为切换计价模式即可看到。</td>
+          </tr>
+          <tr>
+            <td>页头「标准国铁」一直高亮，可我明明选了别的方案</td>
+            <td>该高亮是静态的，不随方案切换变化。判断当前方案请看下方方案按钮中呈深绿色底的那个。</td>
+          </tr>
+          <tr>
+            <td>总价与车站票价表有出入</td>
+            <td>本页是算法模拟；非标准运价的部分基准值取自历史票价表，公式近似会有个位数偏差。具体案例的偏差情况见「案例回归」页。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>本页仅说明界面操作，票价结果由算法模拟，标准票价可能与部分地区、列车实际执行票价不同；非标准运价案例中部分基准值来自历史票价表，公式结果可能存在个位数偏差。</p>
+    <p><a href="index.html">返回计算器</a> · <a href="tests/test.html">案例回归测试</a> · 算法依据：<a href="https://jprailfan.com" target="_blank" rel="noopener">黄河铁路网</a>《铁路标准票价计算方法》《铁路非标准票价计算方法》</p>
+  </footer>
+</body>
+</html>
