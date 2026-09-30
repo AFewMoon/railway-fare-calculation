@@ -26,7 +26,7 @@ export const CASES = [
     p: { seatKey: 'yz', level: 'putong', ac: false, ticket: 'full', sleeperDiscount: 'none',
          segments: [{ km: 57, mode: 'standard' }] } },
   // ── 非标准票价（严格比对）──
-  { id: '例1a', desc: 'K1071 合肥-怀宁 硬座（19+137km 非标准分段折算）', expect: 29.5,
+  { id: '例1a', desc: 'K1071 合肥-怀宁 硬座（19+137km 非标准分段；硬座无卧铺票，起步去重不生效）', expect: 29.5,
     p: { seatKey: 'yz', level: 'kuaisu', ac: true, acRate: 0.5, ticket: 'full', sleeperDiscount: 'none',
          segments: [{ km: 19, mode: 'standard', prorate: true }, { km: 137, mode: 'standard', prorate: true }] } },
   { id: '例1b', desc: 'T221 合肥-怀宁 硬座特快新空调（156km 标准参照）', expect: 23.5,

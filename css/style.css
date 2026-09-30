@@ -170,7 +170,8 @@ a { color: var(--green-700); }
   width: 100%; padding: 7px 8px; font: inherit; font-size: 13px;
   border: 1px solid var(--line); border-radius: 8px; background: #fff;
 }
-.seg-row .chk-mini { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-2); white-space: nowrap; }
+.seg-row .chk-mini { display: flex; align-items: center; gap: 3px; font-size: 11px; line-height: 1.1; color: var(--text-2); white-space: nowrap; }
+.seg-row .chk-mini input[type="checkbox"] { flex: none; width: 13px; height: 13px; margin: 0; padding: 0; }
 .seg-row .del {
   border: none; background: none; color: var(--text-2); font-size: 17px; cursor: pointer;
   border-radius: 8px; height: 30px; transition: all .18s;

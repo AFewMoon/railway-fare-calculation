@@ -129,7 +129,7 @@ export class FormCtl {
       </select>
       <input data-f="extraA" placeholder="上浮率 0.5" />
       <input data-f="extraB" placeholder="卧铺系数" />
-      <label class="chk-mini"><input type="checkbox" data-f="prorate" ${r.prorate ? 'checked' : ''} />折算</label>
+      <label class="chk-mini" title="卧铺起步去重：分段计价时按本段里程折减卧铺票的 400km 起步价，避免每段重复累计；只影响卧铺票"><input type="checkbox" data-f="prorate" ${r.prorate ? 'checked' : ''} aria-label="卧铺起步去重" /><span>卧铺<br />去重</span></label>
       <button type="button" class="del" title="删除">✕</button>`;
     row.querySelector('[data-f="mode"]').value = r.mode || 'standard';
     if (r.u != null) row.querySelector('[data-f="extraA"]').value = r.u;
