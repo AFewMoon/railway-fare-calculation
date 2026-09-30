@@ -51,7 +51,7 @@ a { color: var(--green-700); }
   pointer-events: none;
 }
 .hero-inner {
-  max-width: 1120px; margin: 0 auto;
+  max-width: none; margin: 0 auto;
   padding: 40px 24px 30px;
   display: flex; flex-wrap: wrap; gap: 20px;
   align-items: flex-end; justify-content: space-between;
@@ -75,7 +75,7 @@ a { color: var(--green-700); }
 .tab:hover { background: rgba(255,255,255,.22); transform: translateY(-1px); }
 .tab.active { background: #fff; color: var(--green-900); font-weight: 600; border-color: #fff; }
 .hero-track {
-  height: 6px; display: flex; gap: 6px; padding: 0 24px 14px; max-width: 1120px; margin: 0 auto;
+  height: 6px; display: flex; gap: 6px; padding: 0 24px 14px; max-width: none; margin: 0 auto;
 }
 .hero-track span {
   height: 3px; border-radius: 2px; background: rgba(255,255,255,.25); flex: 1;
@@ -91,7 +91,7 @@ a { color: var(--green-700); }
 @keyframes dash { to { left: 110%; } }
 
 /* ---------- 布局 ---------- */
-.wrap { max-width: 1120px; margin: 0 auto; padding: 24px; }
+.wrap { max-width: none; margin: 0 auto; padding: 24px; }
 .layout { display: grid; grid-template-columns: 1.25fr .9fr; gap: 20px; align-items: start; }
 @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
 
@@ -272,7 +272,7 @@ details p { font-size: 13px; color: var(--text-2); margin: 8px 0; }
 .ref-table th { background: var(--green-100); }
 
 .foot {
-  max-width: 1120px; margin: 0 auto; padding: 10px 24px 40px;
+  max-width: none; margin: 0 auto; padding: 10px 24px 40px;
   font-size: 12.5px; color: var(--text-2); text-align: center;
 }
 .foot p { margin: 4px 0; }
