@@ -34,7 +34,7 @@ export function calculate(p) {
   const totalKm = segs.reduce((s, x) => s + Number(x.km || 0), 0);
 
   trace.add('全程', '运价区段', segs.map(s =>
-    `${s.name || SEG_MODES[s.mode].name} ${s.km}km`).join(' + '), totalKm, 'calc');
+    `${s.name || SEG_MODES[s.mode].name} ${s.km}km`).join(' + '), totalKm, 'calc', '', 'km');
 
   // ── 逐段计算 ──
   const parts = [];

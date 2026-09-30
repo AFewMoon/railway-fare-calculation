@@ -33,7 +33,7 @@ export function stdSegment(seg, ctx, trace, opt = {}) {
   const startKm = 20;
   const res = { seat: 0, speed: 0, acTicket: 0, berth: 0, extra: 0, seatRaw: 0 };
 
-  trace.add(group, '计费里程', `实际 ${seg.km}km → 计费里程`, B, 'calc');
+  trace.add(group, '计费里程', `实际 ${seg.km}km → 计费里程`, B, 'calc', '', 'km');
 
   const units = tierUnits(withStart(B, startKm));   // 客票起步里程 20km
   const seatRaw = RATES.baseSeat * units;      // 硬座率运价（保险计价基础）

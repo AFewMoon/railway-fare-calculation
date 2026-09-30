@@ -95,8 +95,8 @@ export function createTrace() {
   const steps = [];
   return {
     steps,
-    add(group, label, expr, value, kind = 'calc', note = '') {
-      steps.push({ group, label, expr, value, kind, note });
+    add(group, label, expr, value, kind = 'calc', note = '', unit = '元') {
+      steps.push({ group, label, expr, value, kind, note, unit });
       return value;
     },
   };

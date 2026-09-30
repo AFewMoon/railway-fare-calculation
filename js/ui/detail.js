@@ -14,6 +14,12 @@ function fmtVal(v) {
   return Number.isInteger(r) ? String(r) : String(Math.round(r * 100) / 100);
 }
 
+/** 值 + 单位（如 "1225 km"、"1.3 元"），value 为空时返回空串 */
+function fmtValUnit(s) {
+  if (s.value == null) return '';
+  return `${fmtVal(s.value)}${s.unit ? ' ' + s.unit : ''}`;
+}
+
 export function renderDetail(box, trace) {
   if (!trace || !trace.steps.length) {
     box.innerHTML = '<p class="muted">填写参数后此处展示逐步推导过程。</p>';
@@ -34,14 +40,14 @@ export function renderDetail(box, trace) {
     <div class="dgroup">
       <h3>${esc(g.name)}</h3>
       <table class="dtable">
-        <thead><tr><th style="width:180px">项目</th><th>计算式 / 说明</th><th style="width:110px;text-align:right">结果（元）</th></tr></thead>
+        <thead><tr><th style="width:180px">项目</th><th>计算式 / 说明</th><th style="width:110px;text-align:right">结果</th></tr></thead>
         <tbody>
           ${g.steps.map(s => `
             <tr>
               <td><span class="dot ${s.kind}" title="${KIND_NAMES[s.kind] || s.kind}"></span>${esc(s.label)}</td>
               <td class="expr">${esc(s.expr)}${s.note ? ` <span class="muted">（${esc(s.note)}）</span>` : ''}
-                <button class="copy-btn" data-copy="${esc(s.label + '：' + s.expr + (s.value != null ? ' = ' + fmtVal(s.value) : ''))}">复制</button></td>
-              <td class="num">${s.value != null ? fmtVal(s.value) : ''}</td>
+                <button class="copy-btn" data-copy="${esc(s.label + '：' + s.expr + (s.value != null ? ' = ' + fmtValUnit(s) : ''))}">复制</button></td>
+              <td class="num">${fmtValUnit(s)}</td>
             </tr>`).join('')}
         </tbody>
       </table>

@@ -15,7 +15,7 @@ export function dachengSegment(seg, ctx, trace, opt = {}) {
   const B = billingKm(seg.km);
   const res = { seat: 0, speed: 0, acTicket: 0, berth: 0, extra: 0, seatRaw: 0 };
 
-  trace.add(group, '计费里程', `实际 ${seg.km}km → 计费里程 ${B}km（单位里程票价，无递远递减）`, B, 'calc');
+  trace.add(group, '计费里程', `实际 ${seg.km}km → 计费里程 ${B}km（单位里程票价，无递远递减）`, B, 'calc', '', 'km');
 
   // 客票
   const seatRate = seatDef.soft

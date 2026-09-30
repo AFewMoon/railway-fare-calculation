@@ -25,7 +25,7 @@ export function km900Segment(seg, ctx, trace, opt = {}) {
   const res = { seat: 0, speed: 0, acTicket: 0, berth: 0, extra: 0, seatRaw: 0 };
 
   trace.add(group, '计费里程（差价法）',
-    `计费(${KM900 + seg.km}km)=${Bu}km − 计费(${KM900}km)=${KM900}km → 加权里程差`, dUnits, 'calc');
+    `计费(${KM900 + seg.km}km)=${Bu}km − 计费(${KM900}km)=${KM900}km → 加权里程差`, dUnits, 'calc', '', 'km');
   res.seatRaw = RATES.baseSeat * dUnits;
 
   // 客票：差价 → 舍入 → ×(1+u) → 舍入 → 新空调 → 舍入
