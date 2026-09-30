@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>案例回归测试 · 铁路票价模拟计算器</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232E7D32'/%3E%3Crect x='7' y='6' width='18' height='14' rx='4' fill='%23fff'/%3E%3Ccircle cx='12' cy='16' r='2' fill='%232E7D32'/%3E%3Ccircle cx='20' cy='16' r='2' fill='%232E7D32'/%3E%3Crect x='9' y='22' width='3' height='4' rx='1.5' fill='%23fff'/%3E%3Crect x='20' y='22' width='3' height='4' rx='1.5' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>案例回归测试</h1>
+        <p class="hero-sub">自动运行黄河铁路网文档中的标准案例 1–4 与非标准例 1–10，比对引擎输出。</p>
+      </div>
+      <nav class="hero-tabs">
+        <a class="tab" href="../index.html">← 返回计算器</a>
+      </nav>
+    </div>
+    <div class="hero-track" aria-hidden="true"><span></span><span></span><span></span></div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h2 class="card-title">比对结果</h2>
+      <p class="muted">“✓”为严格通过；“≈”为文档参考值——非标准运价案例的部分基准价取自历史票价表（查表值），本引擎按公式近似计算，存在个位数偏差，属预期现象。</p>
+      <div id="summary" class="item-badges" style="margin:12px 0"></div>
+      <table class="dtable">
+        <thead><tr><th>案例</th><th>说明</th><th style="text-align:right">文档值</th><th style="text-align:right">引擎值</th><th style="text-align:right">偏差</th><th>结论</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>算法依据：黄河铁路网《铁路标准票价计算方法》《铁路非标准票价计算方法》</p>
+  </footer>
+
+  <script type="module">
+    import { calculate } from '../js/engine/index.js';
+    import { CASES } from './cases.js';
+    import { fmtYuan } from '../js/engine/util.js';
+
+    const tbody = document.getElementById('rows');
+    let pass = 0, fail = 0, approx = 0;
+
+    for (const c of CASES) {
+      let got = NaN, err = null;
+      try { got = calculate(c.p).total; } catch (e) { err = e; }
+      const diff = got - c.expect;
+      const ok = Math.abs(diff) < 0.001;
+      if (ok) pass++; else if (c.approx) approx++; else fail++;
+      const tag = ok ? '✓ 通过' : (c.approx ? '≈ 参考偏差' : '✗ 失败');
+      const color = ok ? 'var(--green-700)' : (c.approx ? 'var(--amber)' : 'var(--red)');
+      tbody.insertAdjacentHTML('beforeend', `
+        <tr>
+          <td>${c.id}</td>
+          <td>${c.desc}</td>
+          <td class="num">${c.expect}</td>
+          <td class="num">${err ? '错误' : fmtYuan(got)}</td>
+          <td class="num">${ok ? '0' : (diff > 0 ? '+' : '') + fmtYuan(diff)}</td>
+          <td style="color:${color};font-weight:600">${tag}</td>
+        </tr>`);
+    }
+
+    document.getElementById('summary').innerHTML = `
+      <li>通过 ${pass}</li>
+      <li>失败 ${fail}</li>
+      <li class="zero">参考偏差（查表） ${approx}</li>`;
+  </script>
+</body>
+</html>

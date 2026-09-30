@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>铁路票价模拟计算器 · 依据黄河铁路网票价计算方法</title>
+  <meta name="description" content="依据黄河铁路网《铁路标准票价计算方法》《铁路非标准票价计算方法》实现的国铁票价模拟计算器，支持标准运价、900km 运价、达成线、青藏加价等全部规则，并展示完整计算过程。" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232E7D32'/%3E%3Crect x='7' y='6' width='18' height='14' rx='4' fill='%23fff'/%3E%3Ccircle cx='12' cy='16' r='2' fill='%232E7D32'/%3E%3Ccircle cx='20' cy='16' r='2' fill='%232E7D32'/%3E%3Crect x='9' y='22' width='3' height='4' rx='1.5' fill='%23fff'/%3E%3Crect x='20' y='22' width='3' height='4' rx='1.5' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- 页头横幅 -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>铁路票价模拟计算器</h1>
+        <p class="hero-sub">依据<a href="https://www.hhtllm.com" target="_blank" rel="noopener">黄河铁路网</a>《铁路标准票价计算方法》《铁路非标准票价计算方法》模拟 · 计算结果仅供参考，以实际执行票价为准</p>
+      </div>
+      <nav class="hero-tabs" id="modeTabs" aria-label="运价方案切换">
+        <button class="tab active" data-preset="standard" type="button">标准国铁</button>
+        <button class="tab" data-preset="shichang" type="button">非标准运价</button>
+        <a class="tab tab-link" href="tests/test.html">案例回归 ↗</a>
+      </nav>
+    </div>
+    <div class="hero-track" aria-hidden="true"><span></span><span></span><span></span></div>
+  </header>
+
+  <main class="wrap">
+    <noscript><p class="error-box">本计算器需要启用 JavaScript。</p></noscript>
+
+    <div class="layout">
+      <!-- 参数输入 -->
+      <section class="card" aria-labelledby="formTitle">
+        <h2 id="formTitle" class="card-title">票价参数</h2>
+
+        <div class="grid2">
+          <div class="field">
+            <label for="seatSel">席别</label>
+            <select id="seatSel"></select>
+          </div>
+          <div class="field">
+            <label for="levelSel">车次等级</label>
+            <select id="levelSel"></select>
+          </div>
+          <div class="field">
+            <label>空调类型</label>
+            <div class="seg-radio" id="acRadios">
+              <label><input type="radio" name="ac" value="none" /><span>非空调</span></label>
+              <label><input type="radio" name="ac" value="new" checked /><span>新空调</span></label>
+              <label><input type="radio" name="ac" value="custom" /><span>折扣浮动</span></label>
+            </div>
+          </div>
+          <div class="field" id="acRateField" hidden>
+            <label for="acRate">上浮率（如 0.5 = 50%）</label>
+            <input type="number" id="acRate" value="0.5" min="0" max="2" step="0.01" />
+          </div>
+          <div class="field">
+            <label for="ticketSel">票种</label>
+            <select id="ticketSel"></select>
+          </div>
+          <div class="field">
+            <label for="sdSel">短途卧铺折扣</label>
+            <select id="sdSel">
+              <option value="none">不适用</option>
+              <option value="hard">硬卧折扣（158%/170%）</option>
+              <option value="soft">软卧折扣（258%/270%）</option>
+            </select>
+          </div>
+        </div>
+
+        <h3 class="sub-title">运价区段（里程手动输入）</h3>
+        <div class="preset-chips" id="presetChips" aria-label="快捷方案"></div>
+
+        <div class="seg-table" id="segRows"><!-- 行由 form.js 渲染 --></div>
+        <button class="btn ghost small" id="addSeg" type="button">＋ 添加区段</button>
+
+        <div class="actions">
+          <button class="btn primary big" id="calcBtn" type="button">计算票价</button>
+        </div>
+        <p class="error-box" id="errBox" hidden></p>
+      </section>
+
+      <!-- 结果总览 -->
+      <section class="card result" aria-labelledby="resultTitle">
+        <h2 id="resultTitle" class="card-title">计算结果</h2>
+        <div class="total-box">
+          <span class="total-label">模拟票价</span>
+          <span class="total-num"><b id="totalNum">--</b><i>元</i></span>
+        </div>
+        <ul class="item-badges" id="itemBadges"></ul>
+        <p class="warn-box" id="warnBox" hidden></p>
+        <div class="hint">
+          <p>· 客票、空调票起步里程 20km，加快票 100km，卧铺票 400km。</p>
+          <p>· 新空调各分项上浮 50% 后四舍五入；快速/特快加快费按“先浮动、后舍入、再翻番”。</p>
+          <p>· 全程保险先计入客票、再按“五角起价”扣除；学生/儿童/伤残军人票按规则减半。</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- 计算明细 -->
+    <section class="card" aria-labelledby="detailTitle">
+      <div class="detail-head">
+        <h2 id="detailTitle" class="card-title">计算过程明细</h2>
+        <label class="chk"><input type="checkbox" id="autoCalc" checked /> 输入变化自动重算</label>
+      </div>
+      <div id="detailBox" class="detail-box"><p class="muted">填写参数后此处展示逐步推导过程。</p></div>
+    </section>
+
+    <!-- 规则参考 -->
+    <section class="card" aria-labelledby="refTitle">
+      <h2 id="refTitle" class="card-title">规则参考</h2>
+      <details>
+        <summary>递远递减折扣表</summary>
+        <table class="ref-table">
+          <tr><th>里程区间 (km)</th><th>1–200</th><th>201–500</th><th>501–1000</th><th>1001–1500</th><th>1501–2500</th><th>2501–</th></tr>
+          <tr><td>折扣率</td><td>100%</td><td>90%</td><td>80%</td><td>70%</td><td>60%</td><td>50%</td></tr>
+        </table>
+      </details>
+      <details>
+        <summary>计费里程区间表（取区间两端均值）</summary>
+        <table class="ref-table">
+          <tr><th>里程区间</th><th>1–200</th><th>201–400</th><th>401–700</th><th>701–1100</th><th>1101–1600</th><th>1601–2200</th><th>2201–2900</th><th>2901–3700</th><th>3701–4600</th><th>4601–</th></tr>
+          <tr><td>区间宽</td><td>10</td><td>20</td><td>30</td><td>40</td><td>50</td><td>60</td><td>70</td><td>80</td><td>90</td><td>100</td></tr>
+        </table>
+      </details>
+      <details>
+        <summary>分项基价表（元/km）</summary>
+        <table class="ref-table">
+          <tr><th>硬座</th><th>软座</th><th>普快加快</th><th>特快加快</th><th>硬卧上/中/下</th><th>软卧上/下</th><th>高软上/下</th><th>空调</th></tr>
+          <tr><td>0.05861</td><td>0.11722</td><td>0.01172</td><td>普快×2</td><td>0.06447 / 0.07033 / 0.07619</td><td>0.10257 / 0.11429</td><td>0.12308 / 0.13480</td><td>0.01465</td></tr>
+        </table>
+        <p class="muted">硬包（上/下）= 硬卧中/下票价加成 30%。客票、空调票起步 20km；加快票 100km；卧铺票 400km。</p>
+      </details>
+      <details>
+        <summary>保险与杂费</summary>
+        <p>保险费 = 未浮动客票（硬座基价）× 1/50，不足一角核收一角；先计入客票再四舍五入、上浮，最后扣除。全价扣除起价五角、不足五角按五角；半价票按全价扣除额一半以下取最接近值（可为 0）。</p>
+        <p>软票费：优惠后客票 ≤5 元收 0.5 元，否则 1 元（半价票减半、最少五角）。候车室空调费：硬席全程 &gt;200km 收 1 元（半价 0.5 元）；执行 900km 运价的硬席列车必收。卧铺订票费 10 元。</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>本页面为算法模拟，标准票价可能与部分地区、列车实际执行票价不同；非标准运价案例中部分基准值来自历史票价表，公式结果可能存在个位数偏差。</p>
+    <p>算法依据：黄河铁路网《铁路标准票价计算方法》《铁路非标准票价计算方法》 · <a href="tests/test.html">案例回归测试</a></p>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
