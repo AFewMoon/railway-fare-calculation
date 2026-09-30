@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 AFewMoon
+
 /**
  * 非标准运价引擎
  * 1) 900km 运价：f(900+dist) − f(900)，先差价→非标准上浮→舍入→新空调上浮→舍入→快速翻番

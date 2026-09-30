@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 AFewMoon
+
 /**
  * 表单联动逻辑：下拉选项、运价区段编辑、快捷方案预设、参数收集
  */

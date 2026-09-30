@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 AFewMoon
+
 /**
  * 计费里程换算与递远递减
  * 计费里程：取里程所在计费区间的两端数字平均值

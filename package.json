@@ -2,6 +2,7 @@
   "name": "railway-fare-calculation",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "铁路票价模拟计算器（GitHub Pages 静态站，无需构建）",
   "scripts": {

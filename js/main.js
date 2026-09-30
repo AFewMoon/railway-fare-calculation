@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 AFewMoon
+
 /**
  * 页面入口：参数收集 → 引擎计算 → 结果/明细渲染
  */

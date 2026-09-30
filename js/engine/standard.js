@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 AFewMoon
+
 /**
  * 标准票价引擎（国铁标准运价）
  * 实现分项基价、递远递减、新空调上浮、快速加快“先浮动、后舍入、再翻番”。

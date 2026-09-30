@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 AFewMoon
+
 /**
  * 铁路票价计算引擎 - 基础工具
  * 舍入规则、常量、明细记录器

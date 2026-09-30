@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 AFewMoon
+
 /**
  * 票价计算引擎 - 统一入口
  * calculate(params) → { total, items, trace, warnings }

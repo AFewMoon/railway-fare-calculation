@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 AFewMoon
+
 /**
  * 计算过程明细渲染：按步骤分组展示推导式与舍入节点
  */

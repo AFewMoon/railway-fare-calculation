@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 AFewMoon
+
 /**
  * 特殊线路运价：达成线单位里程票价、青藏线席别加价
  */

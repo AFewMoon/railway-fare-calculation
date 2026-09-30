@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 AFewMoon
+
 /**
  * 文档案例基准（供 tests/test.html 与 tests/node-check.mjs 共用）
  * approx: true 表示文档基准值来自历史票价表查表，公式近似存在个位数偏差
