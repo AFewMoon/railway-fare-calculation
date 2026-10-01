@@ -248,7 +248,7 @@ table.dtable { width: 100%; border-collapse: collapse; font-size: 13px; }
 }
 .dtable th { color: var(--text-2); font-weight: 600; font-size: 12px; background: #FAFBF9; }
 .dtable td.num { text-align: right; font-family: var(--mono); white-space: nowrap; }
-.dtable td.expr { font-family: var(--mono); color: var(--text-2); font-size: 12px; word-break: break-all; }
+.dtable td.expr { font-family: var(--mono); color: var(--text-2); font-size: 12px; overflow-wrap: anywhere; }
 .dtable tr { animation: rise .3s ease both; }
 .dtable tr:hover { background: #F6FAF5; }
 .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
@@ -271,6 +271,7 @@ details p { font-size: 13px; color: var(--text-2); margin: 8px 0; }
 .ref-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
 .ref-table th, .ref-table td { border: 1px solid var(--line); padding: 6px 10px; text-align: center; }
 .ref-table th { background: var(--green-100); }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
 .foot {
   max-width: none; margin: 0 auto; padding: 10px 24px 40px;
@@ -295,6 +296,54 @@ a.chip { text-decoration: none; display: inline-block; }
 .guide-card .seg-row input[disabled],
 .guide-card .seg-row select[disabled] { color: var(--text-2); background: #F4F5F2; }
 .guide-card .seg-row .del[disabled] { cursor: default; }
+/* ---------- 窄屏：多列表格降级为纵向卡片 ---------- */
 @media (max-width: 700px) {
   .dtable td, .dtable th { font-size: 12.5px; }
+  .dtable thead { display: none; }
+  .dtable tbody tr {
+    display: block; padding: 9px 2px 11px;
+    border-bottom: 1px solid #EEF2EC;
+  }
+  .dtable tbody tr:last-child { border-bottom: none; }
+  .dtable td {
+    display: block; padding: 2px 0; border: none; text-align: left;
+    word-break: normal; overflow-wrap: anywhere;
+  }
+  .dtable td:empty { display: none; }
+  .dtable td::before {
+    content: attr(data-label); display: block;
+    font-size: 11.5px; font-weight: 600; color: var(--text-2);
+  }
+  .dtable td.num { text-align: left; }
+
+  /* 明细表自带两列网格：项目与结果同行，算式独占下一行 */
+  .dtable.detail-table tbody tr {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'label num' 'expr expr';
+    column-gap: 10px; row-gap: 4px; align-items: baseline;
+  }
+  .dtable.detail-table td { padding: 0; }
+  .dtable.detail-table td::before { content: none; display: none; }
+  .dtable.detail-table td:nth-child(1) { grid-area: label; }
+  .dtable.detail-table td:nth-child(2) { grid-area: expr; }
+  .dtable.detail-table td:nth-child(3) { grid-area: num; text-align: right; font-weight: 600; }
+  .dtable.detail-table .copy-btn {
+    opacity: 1; margin-left: 6px; padding: 0 8px;
+    border: 1px solid var(--line); border-radius: 6px;
+  }
+  .dgroup > h3 { max-width: 100%; border-radius: 8px; }
+
+  /* 数字对照表保持列对齐，改为横向滑动 */
+  .table-scroll .ref-table { min-width: 560px; }
+}
+
+/* ---------- 手机：收紧页宽内边距 ---------- */
+@media (max-width: 560px) {
+  .wrap { padding: 14px 12px; }
+  .hero-inner { padding: 26px 16px 20px; }
+  .hero-track { padding: 0 16px 12px; }
+  .card { padding: 16px 14px; }
+  .total-num b { font-size: 34px; }
+  .btn.big { padding: 12px 32px; }
+  details { padding: 8px 10px; }
 }

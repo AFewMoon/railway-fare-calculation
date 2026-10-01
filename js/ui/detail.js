@@ -42,7 +42,7 @@ export function renderDetail(box, trace) {
   box.innerHTML = groups.map(g => `
     <div class="dgroup">
       <h3>${esc(g.name)}</h3>
-      <table class="dtable">
+      <table class="dtable detail-table">
         <thead><tr><th style="width:180px">项目</th><th>计算式 / 说明</th><th style="width:110px;text-align:right">结果</th></tr></thead>
         <tbody>
           ${g.steps.map(s => `

@@ -41,6 +41,7 @@
     import { calculate } from '../js/engine/index.js';
     import { CASES } from './cases.js';
     import { fmtYuan } from '../js/engine/util.js';
+    import { applyTableLabels } from '../js/ui/table-labels.js';
 
     const tbody = document.getElementById('rows');
     let pass = 0, fail = 0, approx = 0;
@@ -68,6 +69,8 @@
       <li>通过 ${pass}</li>
       <li>失败 ${fail}</li>
       <li class="zero">参考偏差（查表） ${approx}</li>`;
+
+    applyTableLabels();
   </script>
 </body>
 </html>

@@ -358,7 +358,7 @@
     <!-- 八、明细 -->
     <section class="card guide-card" id="detail">
       <h2 class="card-title">八、计算明细与复制</h2>
-      <p class="muted">页面下方的「计算过程明细」，把每一步换算、舍入、上浮、累加都摊开列出，按区段分组。</p>
+      <p class="muted">页面下方的「计算过程明细」，把每一步换算、舍入、上浮、累加都摊开列出，按区段分组。宽屏下是「项目 / 计算式 / 结果」三列的表格；手机窄屏下每一步改为一块，项目与结果同一行、分置左右，计算式独占下一行。</p>
       <table class="dtable">
         <thead>
           <tr><th style="width:170px">元素</th><th>含义与用法</th><th style="width:250px">关联与注意</th></tr>
@@ -376,8 +376,8 @@
           </tr>
           <tr>
             <td><b>复制</b></td>
-            <td>鼠标悬停在某一行时，该行计算式右侧浮现的「复制」按钮；点击后把「项目：计算式 = 结果」写入系统剪贴板，按钮文字变为「已复制」，1.2 秒后复原。</td>
-            <td>按钮平时透明、悬停才现形，这是正常现象。剪贴板接口只在安全环境可用，用浏览器直接双击打开的本地文件（file:// 开头）通常不支持，点了没反应；经 http://localhost 或线上访问则正常。</td>
+            <td>该行计算式右侧的「复制」按钮；点击后把「项目：计算式 = 结果」写入系统剪贴板，按钮文字变为「已复制」，1.2 秒后复原。</td>
+            <td>鼠标操作时按钮平时透明，指针移到该行才现形；手机等触屏窄屏下按钮带边框常驻，便于点按。剪贴板接口只在安全环境可用，用浏览器直接双击打开的本地文件（file:// 开头）通常不支持，点了没反应；经 http://localhost 或线上访问则正常。</td>
           </tr>
           <tr>
             <td><b>彩色圆点</b></td>
@@ -430,5 +430,10 @@
     <p>本页仅说明界面操作，票价结果由算法模拟，标准票价可能与部分地区、列车实际执行票价不同；非标准运价案例中部分基准值来自历史票价表，公式结果可能存在个位数偏差。</p>
     <p><a href="index.html">返回计算器</a> · <a href="tests/test.html">案例回归测试</a> · 算法依据：<a href="https://jprailfan.com" target="_blank" rel="noopener">黄河铁路网</a>《铁路标准票价计算方法》《铁路非标准票价计算方法》</p>
   </footer>
+
+  <script type="module">
+    import { applyTableLabels } from './js/ui/table-labels.js';
+    applyTableLabels();
+  </script>
 </body>
 </html>
